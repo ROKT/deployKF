@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment
+spec:
+  replicas: {{< .Values.kubeflow_tools.tensorboards.tensorboardController.replicas >}}
+  template:
+    spec:
+      containers:
+        - name: manager
+          resources:
+{{< .Values.kubeflow_tools.tensorboards.tensorboardController.resources | toYAML | indent 12 >}}

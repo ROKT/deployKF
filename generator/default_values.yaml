@@ -2100,6 +2100,16 @@ kubeflow_tools:
         repository: gcr.io/kubebuilder/kube-rbac-proxy
         tag: ~
 
+    tensorboardController:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+        limits:
+          cpu: 500m
+          memory: 128Mi
+
     ## the image used for all spawned tensorboard pods
     ## - sets `TENSORBOARD_IMAGE` environment variable in the tensorboard-controller
     ##
