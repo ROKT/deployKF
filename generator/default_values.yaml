@@ -2091,3 +2091,10 @@ kubeflow_tools:
       volumesWebApp:
         repository: docker.io/kubeflownotebookswg/volumes-web-app
         tag: ~
+
+    apiServer:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 250m
+          memory: 500Mi
