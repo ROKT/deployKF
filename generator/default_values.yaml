@@ -1780,6 +1780,14 @@ kubeflow_tools:
     ##
     extraManifests: []
 
+    # ml-pipeline
+    kfpApiServer:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 250m
+          memory: 500Mi
+
     ## image overrides
     ##
     images:
