@@ -638,6 +638,10 @@ deploykf_core:
         tag: v1.8.0
         pullPolicy: IfNotPresent
 
+    centralDashboard:
+      replicas: 1
+      resources: {}
+
     ## configs dashboard navigation
     ##
     navigation:

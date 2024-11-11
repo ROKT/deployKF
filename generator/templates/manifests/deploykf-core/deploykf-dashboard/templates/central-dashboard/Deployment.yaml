@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: central-dashboard
 spec:
-  replicas: 1
+  replicas: {{ .Values.centralDashboard.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "deploykf-dashboard.labels.name" . }}
