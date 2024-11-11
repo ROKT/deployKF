@@ -38,11 +38,15 @@ centralDashboard:
     uid: 1000
     gid: 1000
 
+  replicas: {{< .Values.deploykf_core.deploykf_dashboard.centralDashboard.replicas >}}
+
   ## resource requests/limits for the central-dashboard Pods
   ## - spec for ResourceRequirements:
   ##   https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#resourcerequirements-v1-core
   ##
-  resources: {}
+  resources:
+{{< .Values.deploykf_core.deploykf_dashboard.centralDashboard.resources | toYAML | indent 4 >}}
+
 
   ## the value of `REGISTRATION_FLOW` environment variable for central-dashboard
   ##
