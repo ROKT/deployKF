@@ -3,10 +3,13 @@ kind: Deployment
 metadata:
   name: cache-server
 spec:
+  replicas: {{< .Values.kubeflow_tools.pipelines.kfpCacheServer.replicas >}}
   template:
     spec:
       containers:
         - name: server
+          resources:
+{{< .Values.kubeflow_tools.pipelines.kfpCacheServer.resources | toYAML | indent 12 >}}
           env:
             ## ================================
             ## MySQL Secrets
