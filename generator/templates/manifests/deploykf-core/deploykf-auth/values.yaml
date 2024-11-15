@@ -171,7 +171,10 @@ oauth2Proxy:
   ## - spec for ResourceRequirements:
   ##   https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#resourcerequirements-v1-core
   ##
-  resources: {}
+  resources:
+{{< .Values.deploykf_core.deploykf_auth.oauth2Proxy.resources | toYAML | indent 4 >}}
+
+  replicas: {{< .Values.deploykf_core.deploykf_auth.oauth2Proxy.replicas >}}
 
   ## if a sign-in page is shown before redirecting to dex
   ## NOTE: this prevents background requests being redirected and accumulating CSRF cookies
