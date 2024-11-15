@@ -3,10 +3,13 @@ kind: Deployment
 metadata:
   name: metadata-grpc-deployment
 spec:
+  replicas: {{< .Values.kubeflow_tools.pipelines.tfxMlMetadataStoreServer.replicas >}}
   template:
     spec:
       containers:
         - name: container
+          resources:
+{{< .Values.kubeflow_tools.pipelines.tfxMlMetadataStoreServer.resources | toYAML | indent 12 >}}
           env:
             ## ================================
             ## MySQL Secrets

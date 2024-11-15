@@ -1794,6 +1794,21 @@ kubeflow_tools:
           cpu: 250m
           memory: 500Mi
 
+    # metadata-envoy-deployment
+    kfpMetadataEnvoy:
+      replicas: 1
+      resources: {}
+
+    # metadata-grpc-deployment
+    tfxMlMetadataStoreServer:
+      replicas: 1
+      resources: {}
+
+    # metadata-writer
+    kfpMetadataWriter:
+      replicas: 1
+      resources: {}
+
     ## image overrides
     ##
     images:

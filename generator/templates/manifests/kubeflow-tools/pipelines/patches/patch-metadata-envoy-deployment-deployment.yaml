@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metadata-envoy-deployment
+spec:
+  replicas: {{< .Values.kubeflow_tools.pipelines.kfpMetadataEnvoy.replicas >}}
+  template:
+    spec:
+      containers:
+        - name: container
+          resources:
+{{< .Values.kubeflow_tools.pipelines.kfpMetadataEnvoy.resources | toYAML | indent 12 >}}
