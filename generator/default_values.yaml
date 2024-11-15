@@ -1794,6 +1794,11 @@ kubeflow_tools:
           cpu: 250m
           memory: 500Mi
 
+    # cache-server
+    kfpCacheServer:
+      replicas: 1
+      resources: {}
+
     # metadata-envoy-deployment
     kfpMetadataEnvoy:
       replicas: 1
