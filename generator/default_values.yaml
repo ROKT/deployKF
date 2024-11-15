@@ -568,6 +568,8 @@ deploykf_core:
     ## oauth2-proxy configs
     ##
     oauth2Proxy:
+      replicas: 1
+      resources: {}
 
       ## if a sign-in page is shown before redirecting to dex
       ##  - when enabled, prevents background requests from accumulating CSRF cookies upon token expiry

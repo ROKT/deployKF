@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: oauth2-proxy
 spec:
-  replicas: 1
+  replicas: {{ .Values.oauth2Proxy.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "deploykf-auth.labels.name" . }}
