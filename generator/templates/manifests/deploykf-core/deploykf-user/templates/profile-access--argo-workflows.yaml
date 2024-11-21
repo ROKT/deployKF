@@ -1,0 +1,40 @@
+{{- if .Values.deployKF.argoWorkflows.enabled }}
+
+{{- $user_id := .Values.user_id -}}
+{{- $profiles_access_mapping := .Values.profiles_access_mapping }}
+{{- $user := get $.Values.deployKF_helpers.deploykf_profiles.users_id_mapping $user_id }}
+---
+{{- /* create ServiceAccount for this user in the argo-server namespace */ -}}
+{{- /* https://argoproj.github.io/argo-workflows/argo-server-sso/#sso-rbac */ -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argo-server-user-{{ $user.email | sha256sum }}
+  namespace: {{ $.Values.deployKF.argoWorkflows.namespace | quote }}
+  annotations:
+    workflows.argoproj.io/rbac-rule: {{ printf "email == %q" $user.email | quote }}
+    workflows.argoproj.io/rbac-rule-precedence: "1"
+    workflows.argoproj.io/service-account-token.name: argo-server-user-{{ $user.email | sha256sum }}-sa-token
+  labels:
+    helm.sh/chart: {{ include "deploykf-user.labels.chart" $ }}
+    app.kubernetes.io/name: {{ include "deploykf-user.labels.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+---
+{{- /* create SA token Secret for this user in the argo-server namespace */ -}}
+{{- /* https://argoproj.github.io/argo-workflows/manually-create-secrets/ */ -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argo-server-user-{{ $user.email | sha256sum }}-sa-token
+  namespace: {{ $.Values.deployKF.argoWorkflows.namespace | quote }}
+  annotations:
+    kubernetes.io/service-account.name: argo-server-user-{{ $user.email | sha256sum }}
+  labels:
+    helm.sh/chart: {{ include "deploykf-user.labels.chart" $ }}
+    app.kubernetes.io/name: {{ include "deploykf-user.labels.name" $ }}
+    app.kubernetes.io/instance: {{ $.Release.Name }}
+    app.kubernetes.io/managed-by: {{ $.Release.Service }}
+type: kubernetes.io/service-account-token
+
+{{- end }}

@@ -115,7 +115,9 @@ manifests/deploykf-core/deploykf-istio-gateway/
 {{<- end >}}
 {{<- if not .Values.deploykf_core.deploykf_profiles_generator.enabled >}}
 argocd/applications/deploykf-core/deploykf-profiles-generator.yaml
+argocd/applications/deploykf-core/deploykf-user.yaml
 manifests/deploykf-core/deploykf-profiles-generator/
+manifests/deploykf-core/deploykf-user/
 {{<- end >}}
 
 ## deployKF - deploykf-opt

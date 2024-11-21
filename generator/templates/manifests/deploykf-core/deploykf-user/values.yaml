@@ -1,0 +1,54 @@
+########################################
+## SHARED | deploykf-helpers
+########################################
+deployKF_helpers:
+  deploykf_profiles:
+    users_id_mapping: {{< tmpl.Exec "runtime/deploykf_profiles__users_id_mapping_json" >}}
+    profiles_users_access_mapping: {{< tmpl.Exec "runtime/deploykf_profiles__profiles_users_access_mapping_json" >}}
+    users_profiles_access_mapping: {{< tmpl.Exec "runtime/deploykf_profiles__users_profiles_access_mapping_json" >}}
+
+########################################
+## SHARED | deploykf
+########################################
+deployKF:
+  clusterDomain: cluster.local
+
+  argoWorkflows:
+    enabled: {{< .Values.kubeflow_dependencies.kubeflow_argo_workflows.enabled | conv.ToBool >}}
+    namespace: {{< .Values.kubeflow_dependencies.kubeflow_argo_workflows.namespace | quote >}}
+
+  kubeflow:
+    useridHeader: kubeflow-userid
+
+    pipelines:
+      enabled: {{< .Values.kubeflow_tools.pipelines.enabled | conv.ToBool >}}
+      pipelineUI:
+        namespace: kubeflow
+        serviceAccount: ml-pipeline-ui
+
+  gateway:
+    namespace: {{< .Values.deploykf_core.deploykf_istio_gateway.namespace | quote >}}
+    serviceAccount: {{< .Values.deploykf_core.deploykf_istio_gateway.gatewayDeployment.serviceAccount.name | quote >}}
+    emailToLowercase: {{< .Values.deploykf_core.deploykf_istio_gateway.gateway.emailToLowercase | conv.ToBool >}}
+
+
+########################################
+## CONFIGS | profiles
+########################################
+
+# FIXME(nhurden): Unused?
+
+## user entities
+##  - a list of users that can be referenced when defining profile members
+##
+#users: {{< .Values.deploykf_core.deploykf_profiles_generator.users | toJSON >}}
+
+## group entities
+##  - a list of groups that can be referenced when defining profile members
+##
+#groups: {{< .Values.deploykf_core.deploykf_profiles_generator.groups | toJSON >}}
+
+## profile definitions
+##  - a list of profile definitions to be generated
+##
+#profiles: {{< .Values.deploykf_core.deploykf_profiles_generator.profiles | toJSON >}}

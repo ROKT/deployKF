@@ -37,6 +37,7 @@ resources:
 
   {{<- if .Values.deploykf_core.deploykf_profiles_generator.enabled >}}
   - deploykf-core/deploykf-profiles-generator.yaml
+  - deploykf-core/deploykf-user.yaml
   {{<- end >}}
 
   ##################

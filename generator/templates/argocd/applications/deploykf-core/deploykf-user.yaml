@@ -1,0 +1,47 @@
+{{<- $generator_folder_path := "manifests/deploykf-core/deploykf-user" >}}
+{{<- $values := .Values >}}
+{{<- $users_profiles_access_mapping := tmpl.Exec "runtime/deploykf_profiles__users_profiles_access_mapping_json" | json >}}
+{{<- range $user_id, $profiles_access_mapping := $users_profiles_access_mapping >}}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dkf-core--deploykf-user--{{< $user_id >}}
+  namespace: {{< $values.argocd.namespace | quote >}}
+  annotations:
+    ## applications in 'deploykf-core' come after 'deploykf-dependencies'
+    ## NOTE: 'deploykf-user' must come AFTER 'deploykf-profiles-generator', because the latter contains the profiles
+    argocd.argoproj.io/sync-wave: "24"
+  labels:
+    app.kubernetes.io/name: deploykf-user
+    app.kubernetes.io/component: deploykf-core
+    app.kubernetes.io/part-of: {{< print $values.argocd.appNamePrefix "deploykf" | quote >}}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: {{< $values.argocd.project | quote >}}
+  {{<- if $values.argocd.source.plugin.enabled >}}
+  {{<- $output_helm_path := $generator_folder_path >}}
+  {{<- $output_helm_values_files := coll.Slice "values-overrides.yaml" >}}
+  source: {{< tmpl.Exec "argocd.plugin_source.helm" (dict "output_helm_path" $output_helm_path "output_helm_values_files" $output_helm_values_files) | yaml | toJSON >}}
+  {{<- else >}}
+  source:
+    repoURL: {{< $values.argocd.source.repo.url | quote >}}
+    targetRevision: {{< $values.argocd.source.repo.revision | quote >}}
+    path: {{< path.Join $values.argocd.source.repo.path $generator_folder_path | quote >}}
+    helm:
+      ignoreMissingValueFiles: true
+      values:
+        user_id: {{< $user_id | quote >}}
+        profiles_access_mapping: {{< $profiles_access_mapping | toJSON >}}
+      valueFiles:
+        - values-overrides.yaml
+  {{<- end >}}
+  destination:
+    {{<- if $values.argocd.destination.name >}}
+    name: {{< $values.argocd.destination.name | quote >}}
+    {{<- else >}}
+    server: {{< $values.argocd.destination.server | quote >}}
+    {{<- end >}}
+    namespace: kubeflow
+---
+{{<- end >}}
