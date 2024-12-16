@@ -1799,6 +1799,11 @@ kubeflow_tools:
       replicas: 1
       resources: {}
 
+    # ml-pipeline-ui
+    kfpFrontend:
+      replicas: 1
+      resources: {}
+
     # metadata-envoy-deployment
     kfpMetadataEnvoy:
       replicas: 1

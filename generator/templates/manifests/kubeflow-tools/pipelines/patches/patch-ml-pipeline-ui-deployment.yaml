@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: ml-pipeline-ui
 spec:
+  replicas: {{< .Values.kubeflow_tools.pipelines.kfpFrontend.replicas >}}
   template:
     spec:
       securityContext:
@@ -10,6 +11,8 @@ spec:
         fsGroup: 65534
       containers:
         - name: ml-pipeline-ui
+          resources:
+{{< .Values.kubeflow_tools.pipelines.kfpFrontend.resources | toYAML | indent 12 >}}
           readinessProbe:
             ## NOTE: we remove the readinessProbe because this Deployment has only 1 replica,
             ##       so there is never a case when we don't want to at least try and send traffic to the Pod,
