@@ -73,7 +73,10 @@ dex:
   ## - spec for ResourceRequirements:
   ##   https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#resourcerequirements-v1-core
   ##
-  resources: {}
+  resources:
+{{< .Values.deploykf_core.deploykf_auth.dex.resources | toYAML | indent 4 >}}
+
+  replicas: {{< .Values.deploykf_core.deploykf_auth.dex.replicas >}}
 
   ## log level for the dex container
   ##

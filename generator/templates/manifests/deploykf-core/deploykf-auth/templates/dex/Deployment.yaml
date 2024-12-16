@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: dex
 spec:
-  replicas: 1
+  replicas: {{ .Values.dex.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "deploykf-auth.labels.name" . }}

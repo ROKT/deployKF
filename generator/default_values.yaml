@@ -465,6 +465,8 @@ deploykf_core:
     ## dex configs
     ##
     dex:
+      replicas: 1
+      resources: {}
 
       ## dex static passwords
       ##  - a list of users to create in dex's built-in password database
