@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admission-webhook-deployment
+  namespace: kubeflow
+spec:
+  replicas: {{< .Values.kubeflow_tools.poddefaults_webhook.replicas >}}
+  template:
+    spec:
+      containers:
+        - name: admission-webhook
+          resources:
+{{< .Values.kubeflow_tools.poddefaults_webhook.resources | toYAML | indent 12 >}}

@@ -2048,6 +2048,9 @@ kubeflow_tools:
   poddefaults_webhook:
     enabled: false
 
+    replicas: 1
+    resources: {}
+
     ## extra manifests
     ##  - a list of strings containing extra Kubernetes resource manifests
     ##  - strings can include deployKF templates `{{< ... >}}`

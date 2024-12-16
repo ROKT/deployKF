@@ -15,6 +15,7 @@ resources:
   {{<- end >}}
 
 patchesStrategicMerge:
+  - patches/patch-deployment.yaml
   - patches/patch-mutatingwebhook.yaml
 
 images:
