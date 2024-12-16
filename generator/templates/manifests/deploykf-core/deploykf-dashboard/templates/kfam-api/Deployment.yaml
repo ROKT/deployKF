@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
     app.kubernetes.io/component: kfam-api
 spec:
-  replicas: 1
+  replicas: {{ .Values.kfamAPI.replicas }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "deploykf-dashboard.labels.name" . }}

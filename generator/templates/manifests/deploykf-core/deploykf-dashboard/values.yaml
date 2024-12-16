@@ -246,7 +246,11 @@ kfamAPI:
   ## - spec for ResourceRequirements:
   ##   https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#resourcerequirements-v1-core
   ##
-  resources: {}
+  resources:
+{{< .Values.deploykf_core.deploykf_dashboard.kfamApi.resources | toYAML | indent 4 >}}
+
+  replicas: {{< .Values.deploykf_core.deploykf_dashboard.kfamApi.replicas >}}
+
 
   ## the value of `-cluster-admin` start argument for kfam-api
   ##

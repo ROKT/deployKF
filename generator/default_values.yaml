@@ -643,6 +643,9 @@ deploykf_core:
     centralDashboard:
       replicas: 1
       resources: {}
+    kfamApi:
+      replicas: 1
+      resources: {}
 
     ## configs dashboard navigation
     ##
