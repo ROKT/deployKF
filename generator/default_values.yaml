@@ -1814,6 +1814,14 @@ kubeflow_tools:
       replicas: 1
       resources: {}
 
+    # ml-pipeline-persistenceagent
+    kfpPersistenceagent:
+      replicas: 1
+      resources: # from upstream
+        requests:
+          cpu: 120m
+          memory: 500Mi
+
     ## image overrides
     ##
     images:

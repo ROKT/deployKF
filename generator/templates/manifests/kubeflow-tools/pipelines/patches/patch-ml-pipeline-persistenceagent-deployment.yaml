@@ -3,10 +3,13 @@ kind: Deployment
 metadata:
   name: ml-pipeline-persistenceagent
 spec:
+  replicas: {{< .Values.kubeflow_tools.pipelines.kfpPersistenceagent.replicas >}}
   template:
     spec:
       containers:
         - name: ml-pipeline-persistenceagent
+          resources:
+{{< .Values.kubeflow_tools.pipelines.kfpPersistenceagent.resources | toYAML | indent 12 >}}
           env:
             ## ================================
             ## UserID Configs
