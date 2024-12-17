@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: volumes-web-app-deployment
+  namespace: kubeflow
+spec:
+  replicas: {{< .Values.kubeflow_tools.volumes.volumesWebApp.replicas >}}
+  template:
+    spec:
+      containers:
+        - name: volumes-web-app
+          resources:
+{{< .Values.kubeflow_tools.volumes.volumesWebApp.resources | toYAML | indent 12 >}}

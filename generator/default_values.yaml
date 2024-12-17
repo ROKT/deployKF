@@ -2158,3 +2158,7 @@ kubeflow_tools:
       volumesWebApp:
         repository: docker.io/kubeflownotebookswg/volumes-web-app
         tag: ~
+
+    volumesWebApp:
+      replicas: 1
+      resources: {}
