@@ -2110,6 +2110,10 @@ kubeflow_tools:
           cpu: 500m
           memory: 128Mi
 
+    tensorboardsWebApp:
+      replicas: 1
+      resources: {}
+
     ## the image used for all spawned tensorboard pods
     ## - sets `TENSORBOARD_IMAGE` environment variable in the tensorboard-controller
     ##
