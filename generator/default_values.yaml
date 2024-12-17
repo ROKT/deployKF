@@ -1469,6 +1469,10 @@ kubeflow_tools:
         repository: docker.io/kubeflownotebookswg/notebook-controller
         tag: ~
 
+    jupyterWebApp:
+      replicas: 1
+      resources: {}
+
     ## notebook spawner configs
     ##  - these configs directly become the `spawner_ui_config.yaml` in the jupyter-web-app
     ##  - about the `readOnly` configs:

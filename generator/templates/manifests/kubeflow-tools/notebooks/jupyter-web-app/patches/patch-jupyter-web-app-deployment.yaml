@@ -1,15 +1,19 @@
-{{<- if .Values.kubeflow_tools.notebooks.notebookTemplate ->}}
-## this overwrites the `notebook_template.yaml` with our custom one from `ConfigMap/notebook-template`
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jupyter-web-app-deployment
   namespace: kubeflow
 spec:
+  replicas: {{< .Values.kubeflow_tools.notebooks.jupyterWebApp.replicas >}}
   template:
     spec:
       containers:
         - name: jupyter-web-app
+          resources:
+{{< .Values.kubeflow_tools.notebooks.jupyterWebApp.resources | toYAML | indent 12 >}}
+
+## this overwrites the `notebook_template.yaml` with our custom one from `ConfigMap/notebook-template`
+{{<- if .Values.kubeflow_tools.notebooks.notebookTemplate ->}}
           volumeMounts:
             - name: notebook-template-volume
               mountPath: /src/apps/common/yaml/notebook_template.yaml
