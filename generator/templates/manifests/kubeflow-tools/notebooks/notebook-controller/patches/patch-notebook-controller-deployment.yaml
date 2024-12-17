@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notebook-controller-deployment
+  namespace: kubeflow
+spec:
+  replicas: {{< .Values.kubeflow_tools.notebooks.notebookController.replicas >}}
+  template:
+    spec:
+      containers:
+        - name: manager
+          resources:
+{{< .Values.kubeflow_tools.notebooks.notebookController.resources | toYAML | indent 12 >}}

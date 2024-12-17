@@ -1473,6 +1473,10 @@ kubeflow_tools:
       replicas: 1
       resources: {}
 
+    notebookController:
+      replicas: 1
+      resources: {}
+
     ## notebook spawner configs
     ##  - these configs directly become the `spawner_ui_config.yaml` in the jupyter-web-app
     ##  - about the `readOnly` configs:
