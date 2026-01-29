@@ -7,7 +7,7 @@ namespace: kubeflow
 
 resources:
   ## upstream
-  - upstream/apps/volumes-web-app/upstream/overlays/istio
+  - upstream/applications/volumes-web-app/upstream/overlays/istio
 
   ## local
   {{<- if .Values.kubeflow_tools.volumes.extraManifests >}}
