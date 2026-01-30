@@ -56,8 +56,7 @@ spec:
                "--mysql_config_port=$(MYSQL_PORT)",
                "--mysql_config_user=$(DBCONFIG_USER)",
                "--mysql_config_password=$(DBCONFIG_PASSWORD)",
-               "--enable_database_upgrade=true",
-               "--grpc_channel_arguments=grpc.max_metadata_size=16384"
+               "--enable_database_upgrade=true"
                ]
         ports:
         - name: grpc-api
