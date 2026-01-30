@@ -1347,17 +1347,17 @@ kubeflow_dependencies:
         ##       but Kubeflow Pipelines does not support argo-server v3.4, so we can't upgrade the other images:
         ##        https://github.com/kubeflow/pipelines/issues/8935
         ##        https://github.com/kubeflow/pipelines/issues/8942
-        tag: v3.4.8
+        tag: v3.5.14
         pullPolicy: IfNotPresent
 
       argoExecutor:
         repository: quay.io/argoproj/argoexec
-        tag: v3.3.10
+        tag: v3.5.14
         pullPolicy: IfNotPresent
 
       argoWorkflowController:
         repository: quay.io/argoproj/workflow-controller
-        tag: v3.3.10
+        tag: v3.5.14
         pullPolicy: IfNotPresent
 
     ## configs for the default artifact repository
