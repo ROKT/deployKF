@@ -2156,7 +2156,7 @@ kubeflow_tools:
     ##
     images:
       volumesWebApp:
-        repository: docker.io/kubeflownotebookswg/volumes-web-app
+        repository: ghcr.io/kubeflow/kubeflow/volumes-web-app
         tag: ~
 
     volumesWebApp:
