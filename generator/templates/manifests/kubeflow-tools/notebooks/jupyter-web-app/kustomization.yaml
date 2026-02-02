@@ -7,7 +7,7 @@ namespace: kubeflow
 
 resources:
   ## upstream
-  - upstream/apps/jupyter/jupyter-web-app/upstream/overlays/istio
+  - upstream/applications/jupyter/jupyter-web-app/upstream/overlays/istio
 
 patchesStrategicMerge:
   - patches/patch-jupyter-web-app-authorizationpolicy.yaml
