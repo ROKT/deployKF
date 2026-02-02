@@ -6,10 +6,13 @@ configMapGenerator:
 - envs:
   - params.env
   name: parameters
+- files:
+  - viewer-spec.yaml
+  name: viewer-spec
 images:
-- name: docker.io/kubeflownotebookswg/volumes-web-app
-  newName: docker.io/kubeflownotebookswg/volumes-web-app
-  newTag: v1.7.0
+- name: ghcr.io/kubeflow/kubeflow/volumes-web-app
+  newName: ghcr.io/kubeflow/kubeflow/volumes-web-app
+  newTag: v1.10.0
 kind: Kustomization
 namePrefix: volumes-web-app-
 namespace: kubeflow
@@ -58,6 +61,13 @@ vars:
 - fieldref:
     fieldPath: data.VWA_APP_SECURE_COOKIES
   name: VWA_APP_SECURE_COOKIES
+  objref:
+    apiVersion: v1
+    kind: ConfigMap
+    name: parameters
+- fieldref:
+    fieldPath: data.VWA_APP_ENABLE_METRICS
+  name: VWA_APP_ENABLE_METRICS
   objref:
     apiVersion: v1
     kind: ConfigMap
