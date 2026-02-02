@@ -7,7 +7,7 @@ namespace: kubeflow
 
 resources:
   ## upstream
-  - upstream/apps/tensorboard/tensorboards-web-app/upstream/overlays/istio
+  - upstream/applications/tensorboard/tensorboards-web-app/upstream/overlays/istio
 
 patchesStrategicMerge:
   - patches/patch-tensorboards-web-app-authorizationpolicy.yaml
