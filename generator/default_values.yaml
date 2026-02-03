@@ -1844,40 +1844,40 @@ kubeflow_tools:
     ##
     images:
       kfpCacheServer:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/cache-server
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-cache-server
+        tag: ~
 
       kfpMetadataEnvoy:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/metadata-envoy
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-metadata-envoy
+        tag: ~
 
       kfpMetadataWriter:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/metadata-writer
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-metadata-writer
+        tag: ~
 
       kfpApiServer:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/api-server
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-api-server
+        tag: ~
 
       kfpPersistenceagent:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/persistenceagent
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-persistence-agent
+        tag: ~
 
       kfpScheduledworkflow:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/scheduledworkflow
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-scheduled-workflow-controller
+        tag: ~
 
       kfpFrontend:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/frontend
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-frontend
+        tag: ~
 
       kfpViewerCrdController:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/viewer-crd-controller
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-viewer-crd-controller
+        tag: ~
 
       kfpVisualizationServer:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/visualization-server
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-visualization-server
+        tag: ~
 
       tfxMlMetadataStoreServer:
         repository: ghcr.io/deploykf/ml_metadata_store_server

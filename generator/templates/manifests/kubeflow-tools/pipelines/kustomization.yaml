@@ -144,47 +144,47 @@ configMapGenerator:
       - files/viewer-pod-template.json
 
 images:
-  - name: gcr.io/ml-pipeline/cache-server
+  - name: ghcr.io/kubeflow/kfp-cache-server
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpCacheServer.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpCacheServer.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpCacheServer.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/metadata-envoy
+  - name: ghcr.io/kubeflow/kfp-metadata-envoy
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpMetadataEnvoy.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpMetadataEnvoy.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpMetadataEnvoy.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/metadata-writer
+  - name: ghcr.io/kubeflow/kfp-metadata-writer
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpMetadataWriter.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpMetadataWriter.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpMetadataWriter.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/api-server
+  - name: ghcr.io/kubeflow/kfp-api-server
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpApiServer.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpApiServer.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpApiServer.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/persistenceagent
+  - name: ghcr.io/kubeflow/kfp-persistence-agent
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpPersistenceagent.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpPersistenceagent.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpPersistenceagent.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/scheduledworkflow
+  - name: ghcr.io/kubeflow/kfp-scheduled-workflow-controller
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpScheduledworkflow.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpScheduledworkflow.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpScheduledworkflow.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/frontend
+  - name: ghcr.io/kubeflow/kfp-frontend
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpFrontend.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpFrontend.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpFrontend.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/viewer-crd-controller
+  - name: ghcr.io/kubeflow/kfp-viewer-crd-controller
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpViewerCrdController.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpViewerCrdController.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpViewerCrdController.tag | quote >}}
     {{<- end >}}
-  - name: gcr.io/ml-pipeline/visualization-server
+  - name: ghcr.io/kubeflow/kfp-visualization-server
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpVisualizationServer.repository | quote >}}
     {{<- if .Values.kubeflow_tools.pipelines.images.kfpVisualizationServer.tag >}}
     newTag: {{< .Values.kubeflow_tools.pipelines.images.kfpVisualizationServer.tag | quote >}}
