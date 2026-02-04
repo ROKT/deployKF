@@ -1,0 +1,12 @@
+steps:
+  - label: ":gear: Generate"
+    key: generate
+    command: .buildkite/generate.sh
+    artifact_paths:
+      - "GENERATOR_OUTPUT.tar.gz"
+
+  - label: ":customs: Generate kustomize build steps"
+    depends_on: generate
+    command: |
+      buildkite-agent artifact download GENERATOR_OUTPUT.tar.gz . && tar xzf GENERATOR_OUTPUT.tar.gz
+      .buildkite/generate_roots.sh GENERATOR_OUTPUT | .buildkite/generate_kustomize_steps.sh | tee /dev/tty | buildkite-agent pipeline upload

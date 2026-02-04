@@ -1,0 +1,7 @@
+# Temporary CI-only overrides so generation works without a real ArgoCD repo.
+# Passed last so it overrides any argocd settings in sample-values-overrides.yaml.
+argocd:
+  source:
+    repo:
+      url: "https://example.invalid/deploykf-generated-manifests.git"
+      revision: "main"
