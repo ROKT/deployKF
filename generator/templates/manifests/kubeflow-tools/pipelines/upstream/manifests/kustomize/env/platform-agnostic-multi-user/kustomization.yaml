@@ -1,5 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
-bases:
+kind: Kustomization
+labels:
+- includeSelectors: true
+  pairs:
+    application-crd-id: kubeflow-pipelines
+namespace: kubeflow
+resources:
+- ../../third-party/metacontroller/base
 - ../../base/installs/multi-user
 - ../../base/metadata/base
 - ../../base/metadata/options/istio
@@ -8,8 +15,3 @@ bases:
 - ../../third-party/mysql/options/istio
 - ../../third-party/minio/base
 - ../../third-party/minio/options/istio
-- ../../third-party/metacontroller/base
-commonLabels:
-  application-crd-id: kubeflow-pipelines
-kind: Kustomization
-namespace: kubeflow

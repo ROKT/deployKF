@@ -40,7 +40,7 @@ metadata:
 ---
 $patch: delete
 apiVersion: metacontroller.k8s.io/v1alpha1
-kind: CompositeController
+kind: DecoratorController
 metadata:
   name: kubeflow-pipelines-profile-controller
   namespace: kubeflow

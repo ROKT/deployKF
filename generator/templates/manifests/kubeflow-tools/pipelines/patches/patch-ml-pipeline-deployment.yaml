@@ -49,20 +49,6 @@ spec:
                   key: USERID_PREFIX
 
             ## ================================
-            ## Workflow Image Configs
-            ## ================================
-            - name: V2_DRIVER_IMAGE
-              valueFrom:
-                configMapKeyRef:
-                  name: pipeline-install-config
-                  key: driverImage
-            - name: V2_LAUNCHER_IMAGE
-              valueFrom:
-                configMapKeyRef:
-                  name: pipeline-install-config
-                  key: launcherImage
-
-            ## ================================
             ## MySQL Secrets
             ## ================================
             - name: DBCONFIG_MYSQLCONFIG_USER

@@ -62,7 +62,7 @@
   {{< fail "`kubeflow_tools.pipelines.objectStore.auth.fromEnv` must be false if `kubeflow_tools.pipelines.objectStore.useExternal` is false" >}}
 {{<- end ->}}
 
-{{<- $default_defaultPipelineRoot := "{scheme}://{bucket_name}/v2/artifacts/{profile_name}?region={bucket_region}&endpoint={endpoint}&disableSSL={not_use_ssl}&s3ForcePathStyle=true" >}}
+{{<- $default_defaultPipelineRoot := "{scheme}://{bucket_name}/v2/artifacts/{profile_name}" >}}
 {{<- if and (not .Values.kubeflow_tools.pipelines.objectStore.useExternal) (ne .Values.kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot $default_defaultPipelineRoot) >}}
   {{< fail "`kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot` must be left as the default if `kubeflow_tools.pipelines.objectStore.useExternal` is false" >}}
 {{<- end >}}
