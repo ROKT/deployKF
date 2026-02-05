@@ -7,7 +7,7 @@ namespace: kubeflow
 
 resources:
   ## upstream
-  - upstream/apps/admission-webhook/upstream/overlays/cert-manager
+  - upstream/applications/admission-webhook/upstream/overlays/cert-manager
 
   ## local
   {{<- if .Values.kubeflow_tools.poddefaults_webhook.extraManifests >}}
