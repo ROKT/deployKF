@@ -1844,40 +1844,40 @@ kubeflow_tools:
     ##
     images:
       kfpCacheServer:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/cache-server
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-cache-server
+        tag: ~
 
       kfpMetadataEnvoy:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/metadata-envoy
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-metadata-envoy
+        tag: ~
 
       kfpMetadataWriter:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/metadata-writer
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-metadata-writer
+        tag: ~
 
       kfpApiServer:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/api-server
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-api-server
+        tag: ~
 
       kfpPersistenceagent:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/persistenceagent
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-persistence-agent
+        tag: ~
 
       kfpScheduledworkflow:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/scheduledworkflow
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-scheduled-workflow-controller
+        tag: ~
 
       kfpFrontend:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/frontend
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-frontend
+        tag: ~
 
       kfpViewerCrdController:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/viewer-crd-controller
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-viewer-crd-controller
+        tag: ~
 
       kfpVisualizationServer:
-        repository: ghcr.io/deploykf/kubeflow-pipelines/visualization-server
-        tag: 2.1.0-deploykf.0
+        repository: ghcr.io/kubeflow/kfp-visualization-server
+        tag: ~
 
       tfxMlMetadataStoreServer:
         repository: ghcr.io/deploykf/ml_metadata_store_server
@@ -1981,21 +1981,16 @@ kubeflow_tools:
       ##     - `{not_use_ssl}`: "false" if `kubeflow_tools.pipelines.objectStore.useSSL` is true, "true" otherwise
       ##     - `{profile_name}`: the name of the profile
       ##
-      defaultPipelineRoot: "{scheme}://{bucket_name}/v2/artifacts/{profile_name}?region={bucket_region}&endpoint={endpoint}&disableSSL={not_use_ssl}&s3ForcePathStyle=true"
-
-      ## sets the "driver" image used in v2 workflows
-      ##
-      driverImage: "ghcr.io/deploykf/kubeflow-pipelines/kfp-driver:2.1.0-deploykf.0"
-
-      ## sets the "launcher" image used in v2 workflows
-      ##
-      launcherImage: "ghcr.io/deploykf/kubeflow-pipelines/kfp-launcher:2.1.0-deploykf.0"
+      ## NOTE: KFP v2 launcher uses Go CDK (gocloud.dev) URL parsing for bucket URLs; keep this URL free of
+      ##       non-standard query parameters (like endpoint/disableSSL) unless you have validated support.
+      defaultPipelineRoot: "{scheme}://{bucket_name}/v2/artifacts/{profile_name}"
 
       ## sets the "launcher" image used in v2-compatible workflows
       ##  - this is useful because pipelines compiled with v2-compatible mode use a hard-coded image
       ##    https://github.com/kubeflow/pipelines/blob/1.8.22/sdk/python/kfp/compiler/v2_compat.py#L25
       ##
-      v2CompatibleLauncherImage: "ghcr.io/deploykf/kubeflow-pipelines/kfp-launcher:1.8.22-deploykf.0"
+      # TODO(alexander.mcclelland@rokt.com): Can we infer this?
+      v2CompatibleLauncherImage: "ghcr.io/kubeflow/kfp-launcher:2.5.0"
 
     ## pipeline cache configs
     ##  - note, you can effectively disable caching (for KFP v1 mode) by setting both
