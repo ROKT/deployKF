@@ -137,6 +137,14 @@ configMapGenerator:
     files:
       - files/viewer-pod-template.json
 
+  ## ConfigMap containing a runtime monkey-patch for metadata_helpers.connect_to_mlmd()
+  ## to support METADATA_GRPC_MAX_RECEIVE_MESSAGE_LENGTH env var (backport from KFP master).
+  ## See: https://github.com/kubeflow/pipelines/issues/8408
+  - name: metadata-writer-grpc-patch
+    namespace: kubeflow
+    files:
+      - files/grpc_patch.py
+
 images:
   - name: ghcr.io/kubeflow/kfp-cache-server
     newName: {{< .Values.kubeflow_tools.pipelines.images.kfpCacheServer.repository | quote >}}
