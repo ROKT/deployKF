@@ -635,6 +635,9 @@ data:
   {{<- $defaultPipelineRoot := $.Values.kubeflow_tools.pipelines.kfpV2.defaultPipelineRoot >}}
   {{<- $defaultPipelineRoot = $defaultPipelineRoot | strings.ReplaceAll "{bucket_name}" ($.Values.kubeflow_tools.pipelines.bucket.name | urlquery) >}}
   {{<- $defaultPipelineRoot = $defaultPipelineRoot | strings.ReplaceAll "{profile_name}" $profile_name >}}
+  {{<- $defaultPipelineRoot = $defaultPipelineRoot | strings.ReplaceAll "{bucket_region}" ($.Values.kubeflow_tools.pipelines.bucket.region | default "unspecified") >}}
+  {{<- $defaultPipelineRoot = $defaultPipelineRoot | strings.ReplaceAll "{endpoint}" (tmpl.Exec "kubeflow_pipelines.object_store.endpoint" $) >}}
+  {{<- $defaultPipelineRoot = $defaultPipelineRoot | strings.ReplaceAll "{not_use_ssl}" (tmpl.Exec "kubeflow_pipelines.object_store.not_use_ssl" $) >}}
   {{<- if tmpl.Exec "kubeflow_pipelines.object_store.is_aws_s3" $ >}}
     {{<- $defaultPipelineRoot = $defaultPipelineRoot | strings.ReplaceAll "{scheme}" "s3" >}}
   {{<- else >}}
