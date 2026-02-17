@@ -2064,7 +2064,7 @@ kubeflow_tools:
     ##
     images:
       poddefaultsWebhook:
-        repository: docker.io/kubeflownotebookswg/poddefaults-webhook
+        repository: ghcr.io/kubeflow/kubeflow/poddefaults-webhook
         tag: ~
 
 

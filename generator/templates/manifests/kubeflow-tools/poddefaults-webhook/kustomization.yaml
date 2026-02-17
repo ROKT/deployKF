@@ -7,7 +7,7 @@ namespace: kubeflow
 
 resources:
   ## upstream
-  - upstream/apps/admission-webhook/upstream/overlays/cert-manager
+  - upstream/applications/admission-webhook/upstream/overlays/cert-manager
 
   ## local
   {{<- if .Values.kubeflow_tools.poddefaults_webhook.extraManifests >}}
@@ -19,7 +19,7 @@ patchesStrategicMerge:
   - patches/patch-mutatingwebhook.yaml
 
 images:
-  - name: docker.io/kubeflownotebookswg/poddefaults-webhook
+  - name: ghcr.io/kubeflow/kubeflow/poddefaults-webhook
     newName: {{< .Values.kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.repository | quote >}}
     {{<- if .Values.kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.tag >}}
     newTag: {{< .Values.kubeflow_tools.poddefaults_webhook.images.poddefaultsWebhook.tag | quote >}}
