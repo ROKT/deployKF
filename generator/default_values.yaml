@@ -1990,7 +1990,7 @@ kubeflow_tools:
       ##    https://github.com/kubeflow/pipelines/blob/1.8.22/sdk/python/kfp/compiler/v2_compat.py#L25
       ##
       # TODO(alexander.mcclelland@rokt.com): Can we infer this?
-      v2CompatibleLauncherImage: "ghcr.io/kubeflow/kfp-launcher:2.14.0"
+      v2CompatibleLauncherImage: "ghcr.io/kubeflow/kfp-launcher:2.5.0"
 
     ## pipeline cache configs
     ##  - note, you can effectively disable caching (for KFP v1 mode) by setting both
