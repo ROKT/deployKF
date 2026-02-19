@@ -6,7 +6,24 @@ spec:
   replicas: {{< .Values.kubeflow_tools.pipelines.kfpMetadataWriter.replicas >}}
   template:
     spec:
+      volumes:
+        - name: metadata-writer-patch
+          configMap:
+            name: metadata-writer-patch
       containers:
         - name: main
+          ## Override entrypoint to apply runtime patches before running metadata_writer.py
+          ## Original CMD: python3 -u /kfp/metadata_writer/metadata_writer.py
+          command: ["python3", "-u", "/kfp/metadata_writer/metadata_writer_patch.py"]
           resources:
 {{< .Values.kubeflow_tools.pipelines.kfpMetadataWriter.resources | toYAML | indent 12 >}}
+          env:
+            ## gRPC max receive message length: 50MB (default is 4MB)
+            - name: METADATA_GRPC_MAX_RECEIVE_MESSAGE_LENGTH
+              value: "52428800"
+          volumeMounts:
+            ## Mount the patch file alongside the original code (does not replace any files)
+            - name: metadata-writer-patch
+              mountPath: /kfp/metadata_writer/metadata_writer_patch.py
+              subPath: metadata_writer_patch.py
+              readOnly: true
