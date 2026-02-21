@@ -7,9 +7,11 @@ namespace: kubeflow
 
 resources:
   ## upstream
-  - upstream/apps/volumes-web-app/upstream/overlays/istio
+  - upstream/applications/volumes-web-app/upstream/overlays/istio
 
   ## local
+  # Needed by newer volumes-web-app versions (RBAC references `kubeflow.org/pvcviewers`).
+  - resources/pvcviewers-crd.yaml
   {{<- if .Values.kubeflow_tools.volumes.extraManifests >}}
   - resources/extra-manifests.yaml
   {{<- end >}}
@@ -30,7 +32,7 @@ configMapGenerator:
       - VWA_APP_SECURE_COOKIES="true"
 
 images:
-  - name: docker.io/kubeflownotebookswg/volumes-web-app
+  - name: ghcr.io/kubeflow/kubeflow/volumes-web-app
     newName: {{< .Values.kubeflow_tools.volumes.images.volumesWebApp.repository | quote >}}
     {{<- if .Values.kubeflow_tools.volumes.images.volumesWebApp.tag >}}
     newTag: {{< .Values.kubeflow_tools.volumes.images.volumesWebApp.tag | quote >}}

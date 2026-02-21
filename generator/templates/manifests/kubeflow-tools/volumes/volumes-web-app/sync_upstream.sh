@@ -7,8 +7,8 @@ cd "$THIS_SCRIPT_PATH"
 
 # upstream configs
 UPSTREAM_REPO="github.com/kubeflow/manifests"
-UPSTREAM_PATH="apps/volumes-web-app/upstream/overlays/istio"
-UPSTREAM_REF="14c0f9abe70c4d0ce3e021a5839a7cdd54dc572d" # v1.7.0
+UPSTREAM_PATH="applications/volumes-web-app/upstream/overlays/istio"
+UPSTREAM_REF="d8d643f1a736b28c525bd9b8ee5c9b2f4a661b39" # v1.10.2
 
 # output configs
 OUTPUT_PATH="./upstream"

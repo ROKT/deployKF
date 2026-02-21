@@ -14,6 +14,16 @@
 ##
 
 ## --------------------------------------------------------------------------------
+##                                      argocd
+## --------------------------------------------------------------------------------
+argocd:
+  source:
+    ## dummy repo settings for local rendering (must be non-empty)
+    repo:
+      url: "https://example.invalid/deploykf-generated-manifests.git"
+      revision: "main"
+
+## --------------------------------------------------------------------------------
 ##                              deploykf-dependencies
 ## --------------------------------------------------------------------------------
 deploykf_dependencies:
