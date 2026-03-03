@@ -17,6 +17,11 @@ data:
   namespaceParallelism: {{ .Values.controller.restrictions.namespaceParallelism | quote }}
   {{- end }}
 
+  {{- if .Values.controller.workflowDefaults }}
+  workflowDefaults: |
+{{ .Values.controller.workflowDefaults | indent 4 }}
+  {{- end }}
+
   artifactRepository: |
     ## if true, archive the container logs as an artifact
     archiveLogs: true
