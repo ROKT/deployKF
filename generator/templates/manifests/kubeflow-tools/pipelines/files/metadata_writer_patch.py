@@ -18,6 +18,15 @@ Patch 2: os.remove - debug file cleanup FileNotFoundError
     resource_versions produce duplicate file paths in the deque. First cleanup deletes the
     file; second cleanup hits FileNotFoundError and crashes the process.
   Changes: Wrap os.remove to silently ignore FileNotFoundError.
+
+Patch 3: metadata_helpers.get_or_create_context_with_type() - AlreadyExistsError race condition
+  Original: https://github.com/kubeflow/pipelines/blob/2.5.0/backend/metadata_writer/src/metadata_helpers.py#L170-L196
+  Root cause: Multiple metadata-writer replicas race to create the same context. Both call
+    get_context_by_name() (cache miss), then put_contexts(). The second put_contexts() fails
+    with AlreadyExistsError (MySQL duplicate key on Context.type_id). The unhandled exception
+    propagates up and crashes the process, causing CrashLoopBackOff.
+  Changes: Catch AlreadyExistsError after put_contexts() fails and fall back to
+    get_context_by_name(), clearing the LRU cache so the re-fetch hits the store.
 """
 
 import os
@@ -26,6 +35,7 @@ from time import sleep
 
 from ml_metadata.proto import metadata_store_pb2
 from ml_metadata.metadata_store import metadata_store
+from ml_metadata.errors import AlreadyExistsError
 
 
 def connect_to_mlmd() -> metadata_store.MetadataStore:
@@ -81,6 +91,46 @@ def connect_to_mlmd() -> metadata_store.MetadataStore:
     raise RuntimeError('Could not connect to the Metadata store.')
 
 
+def get_or_create_context_with_type(
+    store,
+    context_name,
+    type_name,
+    properties=None,
+    type_properties=None,
+    custom_properties=None,
+):
+    """Patched get_or_create_context_with_type - see module docstring Patch 3."""
+    import metadata_helpers
+
+    try:
+        context = metadata_helpers.get_context_by_name(store, context_name)
+    except:
+        try:
+            context = metadata_helpers.create_context_with_type(
+                store=store,
+                context_name=context_name,
+                type_name=type_name,
+                properties=properties,
+                type_properties=type_properties,
+                custom_properties=custom_properties,
+            )
+            return context
+        except AlreadyExistsError:
+            print('Context "{}" already exists (race condition), fetching existing.'.format(
+                context_name), flush=True)
+            metadata_helpers.get_context_by_name.cache_clear()
+            context = metadata_helpers.get_context_by_name(store, context_name)
+
+    # Verify the context has the expected type name
+    context_types = store.get_context_types_by_id([context.type_id])
+    assert len(context_types) == 1
+    if context_types[0].name != type_name:
+        raise RuntimeError(
+            'Context "{}" was found, but it has type "{}" instead of "{}"'.format(
+                context_name, context_types[0].name, type_name))
+    return context
+
+
 if __name__ == "__main__":
     import metadata_helpers
     metadata_helpers.connect_to_mlmd = connect_to_mlmd
@@ -97,6 +147,9 @@ if __name__ == "__main__":
             pass
     os.remove = _safe_remove
     print("metadata_writer_patch: patched os.remove to ignore FileNotFoundError", flush=True)
+
+    metadata_helpers.get_or_create_context_with_type = get_or_create_context_with_type
+    print("metadata_writer_patch: patched metadata_helpers.get_or_create_context_with_type", flush=True)
 
     import runpy
     runpy.run_path("/kfp/metadata_writer/metadata_writer.py", run_name="__main__")
